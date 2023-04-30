@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Primary Meta Tags -->
     <title>Drum.Io</title>
     <meta name="title" content="Drum.Io">
     <meta name="keywords" content="drum, drum.io, js30, javascript 30, ">
@@ -32,11 +31,8 @@
             background: url();
             font-family: 'DM Serif Display', serif;
             -webkit-user-select: none;
-            /* Safari */
             -ms-user-select: none;
-            /* IE 10 and IE 11 */
             user-select: none;
-            /* Standard syntax */
         }
 
         h1 {
@@ -106,7 +102,7 @@
     </a>
     <div id="drumio"></div>
     <div class="footnote">Made with <i class="fas fa-heart" style="color: red;" aria-hidden="true"></i> by <a
-            href="https://github.com/shubhu121" target="_blank">dedx</a></div>
+            href="https://github.com/shubhu121" target="_blank">positronx</a></div>
     <script type="text/javascript">
         var data = {
             'A': {
@@ -148,8 +144,6 @@
         };
 
         var drumio = document.getElementById("drumio");
-
-        // Create HTML elements for each drum element and add them to the DOM
         function construct() {
             for (var key in data) {
                 var drumElement = document.createElement('div');
@@ -163,8 +157,6 @@
                 drumElement.appendChild(h2);
                 drumElement.append(span);
                 drumio.appendChild(drumElement);
-
-                // Play the sound corresponding to the clicked drum element
                 drumElement.addEventListener('click', function (event) {
                     var key = event.currentTarget.querySelector('h2').textContent;
                     playDrum(key.toUpperCase());
@@ -172,7 +164,6 @@
             }
         };
 
-        // Play the sound corresponding to the pressed key
         function playDrum(key) {
             if (data.hasOwnProperty(key)) {
                 var drumElement = document.querySelector('.element.' + data[key].name);
@@ -180,8 +171,7 @@
                 var audio = new Audio();
                 audio.src = data[key].sound;
                 audio.play();
-
-                // Remove the active class from the drum element after the sound finishes playing
+                
                 audio.addEventListener('timeupdate', function () {
                     if (audio.currentTime >= audio.duration / 32) {
                         drumElement.classList.remove('active');
@@ -189,26 +179,19 @@
                     }
                 });
             } else {
-                // Show an error message in the console for invalid keys
+            
                 console.log(
                     "OOPS!\nIt looks like you've pressed a key that isn't defined.\nCould you please try again with a valid key?\nThank you!"
                 );
-                // Clear the console after 2.5 seconds
                 setTimeout(function () {
                     console.clear();
                 }, 10000);
             }
         };
-
-        // Handle key press events
         function keyEvents(event) {
             playDrum(event.key.toUpperCase());
         };
-
-        // Listen for any key press events and call keyEvents function to handle the key press
         window.addEventListener('keydown', keyEvents);
-
-        // Add drum elements to the drumio
         construct();
     </script>
 </body>
